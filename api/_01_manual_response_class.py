@@ -13,9 +13,12 @@ books = [{
 
 @app.route('/book')
 def book_list():
-    response = Response(
-        json.dumps(books), status=200, mimetype=JSON_MIME_TYPE)
-    return response
+    # response = Response(
+    #     json.dumps(books), status=200, mimetype=JSON_MIME_TYPE)
+    # return response
+
+    content = json.dumps(books)
+    return content, 200, {'Content-Type': JSON_MIME_TYPE}
 
 
 @app.route('/book/<int:book_id>')

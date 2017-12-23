@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.before_request
 def before_request():
+    # initialize database that will be used across the view functions below (stored in g.db)
     g.db = sqlite3.connect(app.config['DATABASE_NAME'])
 
 
@@ -26,15 +27,21 @@ def book_list():
 
 @app.route('/book', methods=['POST'])
 def book_create():
+    """Insert data in database using the API"""
+
+    # check if the posted data is a json data and not any other type of data
+    # request is a global object that gives you access to the requested data by the the web client
     if request.content_type != JSON_MIME_TYPE:
         error = json.dumps({'error': 'Invalid Content Type'})
         return json_response(error, 400)
 
+    # check if posted data has info in all required fields
     data = request.json
     if not all([data.get('title'), data.get('author_id')]):
         error = json.dumps({'error': 'Missing field/s (title, author_id)'})
         return json_response(error, 400)
 
+    # database specific procedures
     query = ('INSERT INTO book ("author_id", "title") '
              'VALUES (:author_id, :title);')
     params = {
