@@ -47,3 +47,7 @@ $ python run_app.py
 ```bash
 $ make test
 ```
+
+## License scope
+
+The [MIT License](LICENSE) covers Palermo Penano's original contributions identified in [LICENSING.md](LICENSING.md). Inherited upstream code and documentation, other authors' contributions, and third-party material retain their own rights and are excluded from that grant. Please read the scope notice before reusing the complete project.
